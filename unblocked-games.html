@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Unblocked Site</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            background: #00c3ff;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #00f2ff;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    My Simple Website
+</header>
+
+<div class="container">
+    <h1>Welcome</h1>
+    <p>This is a simple unblocked website template.</p>
+
+    <div class="button" onclick="showMessage()">Click Me</div>
+    <div class="button" onclick="changeColor()">Change Background</div>
+</div>
+
+<footer>
+    © 2026 My Site
+</footer>
+
+<script>
+    function showMessage() {
+        alert("Hello! Your site is working.");
+    }
+
+    function changeColor() {
+        const colors = [
+            "linear-gradient(135deg, #0f2027, #203a43, #2c5364)",
+            "linear-gradient(135deg, #1e3c72, #2a5298)",
+            "linear-gradient(135deg, #134E5E, #71B280)",
+            "linear-gradient(135deg, #42275a, #734b6d)"
+        ];
+        
+        const random = colors[Math.floor(Math.random() * colors.length)];
+        document.body.style.background = random;
+    }
+</script>
+
+</body>
+</html>
