@@ -2,193 +2,336 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Website</title>
+<title>fazzy games OXO</title>
 
-<!-- Favicon (default) -->
 <link id="favicon" rel="icon" href="https://www.google.com/favicon.ico">
 
 <style>
-/* ===== Base ===== */
-body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-    overflow-x: hidden;
+
+body{
+margin:0;
+font-family:Segoe UI,Arial;
+background:linear-gradient(135deg,#0f172a,#020617);
+color:white;
+overflow:hidden;
 }
 
-/* ===== Fade animation ===== */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(15px);}
-    to {opacity: 1; transform: translateY(0);}
+/* particles canvas */
+#particles{
+position:fixed;
+width:100%;
+height:100%;
+z-index:0;
 }
 
-/* ===== Header ===== */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(10px);
-    animation: fadeIn 0.6s ease;
+/* header */
+header{
+position:relative;
+z-index:2;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 20px;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
 }
 
-.logo {
-    font-size: 20px;
-    font-weight: 600;
+.logo{
+font-weight:600;
+font-size:18px;
 }
 
-/* ===== Settings button ===== */
-.settings-btn {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    padding: 8px 14px;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.25s;
+.clock{
+opacity:0.7;
 }
 
-.settings-btn:hover {
-    background: rgba(255,255,255,0.2);
+/* menu grid */
+.menu{
+position:relative;
+z-index:2;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:20px;
+padding:30px;
 }
 
-/* ===== Main content ===== */
-.container {
-    text-align: center;
-    margin-top: 100px;
-    animation: fadeIn 0.8s ease;
+/* game cards */
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:14px;
+padding:30px;
+cursor:pointer;
+transition:0.25s;
+text-align:center;
+font-size:18px;
 }
 
-h1 {
-    font-weight: 500;
+.card:hover{
+transform:translateY(-5px) scale(1.03);
+background:rgba(255,255,255,0.12);
+box-shadow:0 0 20px rgba(0,150,255,0.5);
 }
 
-/* ===== Modal overlay ===== */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(5px);
-    display: none;
-    justify-content: center;
-    align-items: center;
+/* game view */
+#gameView{
+position:absolute;
+inset:0;
+display:none;
+z-index:3;
+background:black;
 }
 
-/* ===== Modal window ===== */
-.modal {
-    background: #0f172a;
-    border-radius: 16px;
-    padding: 25px;
-    width: 300px;
-    animation: fadeIn 0.25s ease;
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+iframe{
+width:100%;
+height:100%;
+border:none;
 }
 
-/* ===== Modal buttons ===== */
-.modal button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background: #1e293b;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
+/* buttons */
+.topbar{
+position:absolute;
+top:10px;
+left:10px;
+z-index:5;
 }
 
-.modal button:hover {
-    background: #334155;
+.btn{
+background:rgba(0,0,0,0.6);
+border:none;
+color:white;
+padding:8px 14px;
+margin-right:6px;
+border-radius:8px;
+cursor:pointer;
 }
 
-/* ===== Toggle switch ===== */
-.toggle {
-    margin-top: 15px;
-    cursor: pointer;
+/* settings modal */
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:10;
 }
+
+.modal{
+background:#020617;
+padding:20px;
+border-radius:12px;
+width:260px;
+}
+
+.modal button{
+width:100%;
+margin-top:8px;
+padding:8px;
+background:#0f172a;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
 </style>
 </head>
 <body>
 
+<canvas id="particles"></canvas>
+
 <header>
-    <div class="logo">My Website</div>
-    <button class="settings-btn" onclick="openSettings()">Settings</button>
+
+<div class="logo">fazzy games OXO</div>
+
+<div>
+<span class="clock" id="clock"></span>
+<button class="btn" onclick="openSettings()">Settings</button>
+</div>
+
 </header>
 
-<div class="container">
-    <h1>Welcome</h1>
-    <p>Clean animated unblocked site.</p>
+
+<!-- MAIN MENU -->
+<div class="menu" id="menu">
+
+<div class="card" onclick="launchGame('https://bit-life.pages.dev/bitlife/')">
+BitLife
 </div>
 
-<!-- Settings Modal -->
+<div class="card" onclick="launchGame('https://nyaa.kfa.cl/games/bts/index.html')">
+Bad Time Sim
+</div>
+
+<div class="card" onclick="launchGame('https://nyaa.kfa.cl/games/BATIM/BATIM/index.html')">
+Bendy
+</div>
+
+<div class="card" onclick="launchGame('https://example.com')">
+Coming Soon
+</div>
+
+</div>
+
+
+<!-- GAME VIEW -->
+<div id="gameView">
+
+<div class="topbar">
+
+<button class="btn" onclick="exitGame()">Menu</button>
+
+<button class="btn" onclick="fullscreen()">Fullscreen</button>
+
+</div>
+
+<iframe id="gameFrame"></iframe>
+
+</div>
+
+
+<!-- SETTINGS -->
 <div class="modal-overlay" id="overlay">
-    <div class="modal">
-        <h3>Settings</h3>
+<div class="modal">
 
-        <button onclick="cloakGoogle()">Cloak as Google</button>
-        <button onclick="cloakClever()">Cloak as Clever</button>
-        <button onclick="resetCloak()">Reset Cloak</button>
+<h3>Settings</h3>
 
-        <div class="toggle">
-            <button onclick="toggleMusic()">Toggle Music</button>
-        </div>
+<button onclick="cloakGoogle()">Cloak Google</button>
 
-        <button onclick="closeSettings()">Close</button>
-    </div>
+<button onclick="cloakClever()">Cloak Clever</button>
+
+<button onclick="toggleMusic()">Toggle Music</button>
+
+<button onclick="closeSettings()">Close</button>
+
+</div>
 </div>
 
-<!-- Audio -->
+
 <audio id="music" loop>
-    <source src="Alex G - Harvey (Official Video).mp3" type="audio/mpeg">
+<source src="Alex G - Harvey (Official Video).mp3">
 </audio>
 
+
 <script>
-const overlay = document.getElementById("overlay");
-const music = document.getElementById("music");
-const favicon = document.getElementById("favicon");
 
-/* Modal controls */
-function openSettings(){
-    overlay.style.display = "flex";
+/* GAME SYSTEM */
+
+function launchGame(url){
+
+document.getElementById("gameFrame").src=url;
+document.getElementById("gameView").style.display="block";
+
 }
 
-function closeSettings(){
-    overlay.style.display = "none";
+function exitGame(){
+
+document.getElementById("gameView").style.display="none";
+document.getElementById("gameFrame").src="";
+
 }
 
-/* Cloak functions */
+/* fullscreen */
+
+function fullscreen(){
+
+document.getElementById("gameFrame").requestFullscreen();
+
+}
+
+/* clock */
+
+setInterval(()=>{
+document.getElementById("clock").innerText=
+new Date().toLocaleTimeString();
+},1000);
+
+
+/* cloak */
+
 function cloakGoogle(){
-    document.title = "Google";
-    favicon.href = "https://www.google.com/favicon.ico";
+document.title="Google";
+favicon.href="https://google.com/favicon.ico";
 }
 
 function cloakClever(){
-    document.title = "Clever | Portal";
-    favicon.href = "https://assets.clever.com/favicon.ico";
+document.title="Clever";
+favicon.href="https://assets.clever.com/favicon.ico";
 }
 
-function resetCloak(){
-    document.title = "My Website";
-    favicon.href = "https://www.google.com/favicon.ico";
+/* panic key */
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape") cloakGoogle();
+
+});
+
+
+/* settings */
+
+function openSettings(){
+overlay.style.display="flex";
 }
 
-/* Music toggle */
+function closeSettings(){
+overlay.style.display="none";
+}
+
+
+/* music */
+
 function toggleMusic(){
-    if(music.paused){
-        music.play();
-    } else {
-        music.pause();
-    }
+
+let m=document.getElementById("music");
+
+if(m.paused) m.play();
+else m.pause();
+
 }
 
-/* Close modal if clicking outside */
-overlay.onclick = function(e){
-    if(e.target === overlay){
-        closeSettings();
-    }
+
+/* particles */
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<60;i++){
+
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.5,
+vy:(Math.random()-0.5)*0.5
+});
+
 }
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+
+p.x+=p.vx;
+p.y+=p.vy;
+
+ctx.fillStyle="rgba(0,150,255,0.7)";
+ctx.fillRect(p.x,p.y,2,2);
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
 </script>
 
 </body>
