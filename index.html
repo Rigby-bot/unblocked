@@ -1,88 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Simple Unblocked Site</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<title>My Website</title>
 
-        header {
-            background: rgba(0,0,0,0.4);
-            padding: 20px;
-            font-size: 28px;
-            font-weight: bold;
-        }
+<!-- Favicon (default) -->
+<link id="favicon" rel="icon" href="https://www.google.com/favicon.ico">
 
-        .container {
-            margin-top: 50px;
-        }
+<style>
+/* ===== Base ===== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    overflow-x: hidden;
+}
 
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            margin: 10px;
-            background: #00c3ff;
-            color: black;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.2s;
-            cursor: pointer;
-        }
+/* ===== Fade animation ===== */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+}
 
-        .button:hover {
-            background: #00f2ff;
-            transform: scale(1.05);
-        }
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.6s ease;
+}
 
-        footer {
-            margin-top: 60px;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            font-size: 14px;
-        }
-    </style>
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* ===== Settings button ===== */
+.settings-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.settings-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ===== Main content ===== */
+.container {
+    text-align: center;
+    margin-top: 100px;
+    animation: fadeIn 0.8s ease;
+}
+
+h1 {
+    font-weight: 500;
+}
+
+/* ===== Modal overlay ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== Modal window ===== */
+.modal {
+    background: #0f172a;
+    border-radius: 16px;
+    padding: 25px;
+    width: 300px;
+    animation: fadeIn 0.25s ease;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+
+/* ===== Modal buttons ===== */
+.modal button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #1e293b;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modal button:hover {
+    background: #334155;
+}
+
+/* ===== Toggle switch ===== */
+.toggle {
+    margin-top: 15px;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
 
 <header>
-    My Simple Website
+    <div class="logo">My Website</div>
+    <button class="settings-btn" onclick="openSettings()">Settings</button>
 </header>
 
 <div class="container">
     <h1>Welcome</h1>
-    <p>This is a simple unblocked website template.</p>
-
-    <div class="button" onclick="showMessage()">Click Me</div>
-    <div class="button" onclick="changeColor()">Change Background</div>
+    <p>Clean animated unblocked site.</p>
 </div>
 
-<footer>
-    © 2026 My Site
-</footer>
+<!-- Settings Modal -->
+<div class="modal-overlay" id="overlay">
+    <div class="modal">
+        <h3>Settings</h3>
+
+        <button onclick="cloakGoogle()">Cloak as Google</button>
+        <button onclick="cloakClever()">Cloak as Clever</button>
+        <button onclick="resetCloak()">Reset Cloak</button>
+
+        <div class="toggle">
+            <button onclick="toggleMusic()">Toggle Music</button>
+        </div>
+
+        <button onclick="closeSettings()">Close</button>
+    </div>
+</div>
+
+<!-- Audio -->
+<audio id="music" loop>
+    <source src="Alex G - Harvey (Official Video).mp3" type="audio/mpeg">
+</audio>
 
 <script>
-    function showMessage() {
-        alert("Hello! Your site is working.");
-    }
+const overlay = document.getElementById("overlay");
+const music = document.getElementById("music");
+const favicon = document.getElementById("favicon");
 
-    function changeColor() {
-        const colors = [
-            "linear-gradient(135deg, #0f2027, #203a43, #2c5364)",
-            "linear-gradient(135deg, #1e3c72, #2a5298)",
-            "linear-gradient(135deg, #134E5E, #71B280)",
-            "linear-gradient(135deg, #42275a, #734b6d)"
-        ];
-        
-        const random = colors[Math.floor(Math.random() * colors.length)];
-        document.body.style.background = random;
+/* Modal controls */
+function openSettings(){
+    overlay.style.display = "flex";
+}
+
+function closeSettings(){
+    overlay.style.display = "none";
+}
+
+/* Cloak functions */
+function cloakGoogle(){
+    document.title = "Google";
+    favicon.href = "https://www.google.com/favicon.ico";
+}
+
+function cloakClever(){
+    document.title = "Clever | Portal";
+    favicon.href = "https://assets.clever.com/favicon.ico";
+}
+
+function resetCloak(){
+    document.title = "My Website";
+    favicon.href = "https://www.google.com/favicon.ico";
+}
+
+/* Music toggle */
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
     }
+}
+
+/* Close modal if clicking outside */
+overlay.onclick = function(e){
+    if(e.target === overlay){
+        closeSettings();
+    }
+}
 </script>
 
 </body>
